@@ -955,10 +955,11 @@ aclnnStatus CheckChunkKdaFwd32Params(const ChunkKdaFwdParams &params, KdaFwdLayo
         OP_LOGE_FOR_INVALID_VALUE("aclnnChunkKdaFwd", "B", std::to_string(info.batch), "1 for rank4 varlen");
         return ACLNN_ERR_PARAM_INVALID;
     }
-    const aclTensor *unsupported[] = {params.gkOut, params.wOut, params.uOut, params.qgOut,
-        params.kgOut, params.vNewOut, params.hOut};
-    const char *unsupportedNames[] = {"gkOut", "wOut", "uOut", "qgOut", "kgOut", "vNewOut", "hOut"};
-    for (size_t i = 0; i < 7; ++i) {
+    const aclTensor *unsupported[] = {params.gkOut, params.aqkOut, params.akkOut, params.wOut,
+        params.uOut, params.qgOut, params.kgOut, params.vNewOut, params.hOut};
+    const char *unsupportedNames[] = {"gkOut", "aqkOut", "akkOut", "wOut", "uOut", "qgOut",
+        "kgOut", "vNewOut", "hOut"};
+    for (size_t i = 0; i < 9; ++i) {
         if (unsupported[i] != nullptr) {
             OP_LOGE_FOR_INVALID_VALUE_WITH_REASON("aclnnChunkKdaFwd", unsupportedNames[i], "provided", "chunkSize=32 only exports attnOut/finalStateOut");
             return ACLNN_ERR_PARAM_INVALID;
